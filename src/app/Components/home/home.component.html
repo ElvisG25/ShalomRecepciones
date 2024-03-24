@@ -343,7 +343,7 @@
     <section class="section" id="Comentarios">
         <div class="container">
             <div class="seccion_button">
-                <button id="comentar-btn" class="comic-button">Tu opinión es importante para nosotros.</button>
+                <button id="comentar-btn" class="comic-button">Tu opinión es importante</button>
             </div>
             <div id="modal" class="modal">
                 <div class="cardmerg">
@@ -383,16 +383,16 @@
             </div>
             <br>
             <div class="project-container">
-                <!-- <div class="project-box">
-                    @for (Item of item; track $index) {}
-                    <ul>
-                        <li *ngFor="let item of item$ | async">
-                            {{ item.nombres }}
-                            {{ item. valorizacion}}
-                            {{ item. comentario}}
-                        </li>
-                    </ul>
-                </div> -->
+                <div class="project-box">
+                    <ng-container *ngFor="let item of item$ | async">
+                        <div>
+                            <h3>{{item.nombres}}</h3>
+                            <label>{{ item.comentario}}</label>
+                            <label>{{ item.valorizacion}}</label>
+                        </div>
+                    </ng-container>
+                </div>
+
                 <div class="project-box">
                     <i class="uil uil-briefcase-alt"></i>
                     <h3>Roberto Guales</h3>
@@ -592,7 +592,7 @@
                                         </select>
                                     </fieldset>
                                 </div>
-                                
+
                                 <div class="col-md-6 col-sm-12">
                                     <fieldset>
                                         <select value="time" name="time" id="time" required>

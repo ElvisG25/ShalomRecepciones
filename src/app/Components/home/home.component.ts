@@ -1,22 +1,27 @@
-import { Component, OnInit } from '@angular/core';
-import { RouterLink } from '@angular/router';
+import { Component, OnInit, inject } from '@angular/core';
+import { RouterLink, RouterOutlet } from '@angular/router';
 import { AppComponent } from "../../app.component";
-import { CargarscriptsService } from '../../Services/scripts/cargarscripts.service';
+import { Observable } from 'rxjs';
+import { Firestore, collection, collectionData } from '@angular/fire/firestore';
+import { CommonModule } from '@angular/common';
 
+interface Item {
+  nombres: string,
+  valorizacion: string,
+  comentario: string,
+};
 @Component({
     selector: 'app-home',
     standalone: true,
     templateUrl: './home.component.html',
     styleUrl: './home.component.css',
-    imports: [RouterLink, AppComponent]
+    imports: [RouterLink, AppComponent, RouterOutlet,CommonModule]
 })
 export class HomeComponent {
-  // constructor(private cargarscripts: CargarscriptsService) { }
-  // ngOnInit(): void {
-  //   this.cargarscripts.cargarScript('assets/js/custom.js').then(() => {
-  //     console.log('Script cargado correctamente');
-  //   }).catch(error => {
-  //     console.error('Error al cargar el script:', error);
-  //   });
-  // }
+  item$: Observable<Item[]>;
+  firestore: Firestore = inject(Firestore);
+  constructor() {
+    const itemCollection = collection(this.firestore, 'Comentarios');
+    this.item$ = collectionData(itemCollection) as Observable<Item[]>;
+  }
 }
